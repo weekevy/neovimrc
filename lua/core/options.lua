@@ -37,7 +37,12 @@ vim.diagnostic.config {
 
 -- Backspace
 opt.backspace = "indent,eol,start"
-
+vim.opt.listchars = {
+  tab = '→ ',
+  extends = '>',
+  precedes = '<',
+  nbsp = '␣',
+}
 -- Clipboard
 opt.clipboard:append("unnamedplus")
 -- Split Windows
