@@ -1,20 +1,26 @@
 
-
 return {
   "tpope/vim-fugitive",
-    config = function()
-        require("core.keymaps")
-        -- Git status
-        vim.keymap.set('n', '<Leader>he', ':Git<CR>', { desc = 'Git Status', noremap = true, silent = true })
-        -- Git commit
-        vim.keymap.set('n', '<Leader>hr', ':Gcommit<CR>', { desc = 'Git Commit', noremap = true, silent = true })
-        -- Git diff
-        vim.keymap.set('n', '<Leader>hd', ':Gdiffsplit<CR>', { desc = 'Git Diff', noremap = true, silent = true })
-        -- Git blame
-        vim.keymap.set('n', '<Leader>hb', ':Gblame<CR>', { desc = 'Git Blame', noremap = true, silent = true })
-        -- Git log
-        vim.keymap.set('n', '<Leader>hl', ':0Glog<CR>', { desc = 'Git Log', noremap = true, silent = true })
-        -- Git push
-        vim.keymap.set('n', '<Leader>hq', ':Gpush<CR>', { desc = 'Git Push', noremap = true, silent = true })
-    end,
+  cmd = { "Git", "G", "Gdiffsplit", "Gread", "Gwrite" },
+  config = function()
+    local map = vim.keymap.set
+    local opts = { noremap = true, silent = true }
+
+    map("n", "<leader>gs", "<cmd>Git<CR>", { desc = "Git status" })
+
+    map("n", "<leader>gc", function()
+      vim.ui.input({ prompt = "Commit message: " }, function(msg)
+        if msg and #msg > 0 then
+          vim.cmd("Git commit -m '" .. msg:gsub("'", [["]]) .. "'")
+        else
+          vim.notify("Commit canceled (empty message)", vim.log.levels.WARN)
+        end
+      end)
+    end, { desc = "Git commit with message", noremap = true, silent = true })
+    map("n", "<leader>gp", "<cmd>Git push<CR>", { desc = "Git push" })
+    map("n", "<leader>gP", "<cmd>Git pull<CR>", { desc = "Git pull" })
+    map("n", "<leader>gd", "<cmd>Gdiffsplit<CR>", { desc = "Git diff split" })
+    map("n", "<leader>gb", "<cmd>Git blame<CR>", { desc = "Git blame" })
+  end,
 }
+

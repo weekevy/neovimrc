@@ -22,6 +22,31 @@ require("lazy").setup("plugins", {
 })
 
 
+vim.api.nvim_create_user_command("Run", function()
+  local ft = vim.bo.filetype
+  local file = vim.fn.expand("%")
+  local cmd = ""
+
+  if ft == "python" then
+    cmd = "python3 " .. file
+  elseif ft == "javascript" then
+    cmd = "node " .. file
+  elseif ft == "typescript" then
+    cmd = "ts-node " .. file
+  elseif ft == "lua" then
+    cmd = "lua " .. file
+  elseif ft == "sh" then
+    cmd = "bash " .. file
+  elseif ft == "ruby" then
+    cmd = "ruby " .. file
+  else
+    print("No run command defined for filetype: " .. ft)
+    return
+  end
+
+  vim.cmd("!" .. cmd)
+end, {})
+
 
 -- These modules are not loaded by lazy
 require("core.options")

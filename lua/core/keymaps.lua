@@ -3,7 +3,25 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.api.nvim_set_keymap('v', '<S-K>', ':m \'<-2<CR>gv=gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<S-J>', ':m \'>+1<CR>gv=gv', { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>r", ":Run<CR>", { desc = "Run current file" })
+
+
+
 local keymap = vim.keymap
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+map("n", "<leader>gs", "<cmd>Git<CR>", { desc = "Git status" })
+map("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "Git commit" })
+map("n", "<leader>ga", "<cmd>Git add .<CR>", { desc = "Git add" })
+map("n", "<leader>gp", "<cmd>Git push<CR>", { desc = "Git push" })
+map("n", "<leader>gP", "<cmd>Git pull<CR>", { desc = "Git pull" })
+map("n", "<leader>gd", "<cmd>Gdiffsplit<CR>", { desc = "Git diff split" })
+map("n", "<leader>gb", "<cmd>Git blame<CR>", { desc = "Git blame" })
+
+
+
 
 -- General keymaps
 keymap.set("n", "<leader>wq", ":wq<CR>") -- save and quit
