@@ -1,4 +1,4 @@
-# ⚡️ Neovim Configuration
+# Neovim Configuration
 
 A minimal yet powerful Neovim setup tailored for performance, productivity, and modern development.
 
